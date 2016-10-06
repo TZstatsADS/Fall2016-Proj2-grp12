@@ -14,3 +14,5 @@ sat <- sat %>%
        mutate(longtitude = geocode(address)[,1],latitude = geocode(address)[,2]) # The first var of the geocode function output 
                                                                        # is the longtitude and the second var is the latitude
  
+![before](https://github.com/TZstatsADS/Fall2016-Proj2-grp12/blob/master/lib/Screen%20Shot%202016-10-05%20at%208.57.00%20PM.png)
+![after](https://github.com/TZstatsADS/Fall2016-Proj2-grp12/blob/master/lib/Screen%20Shot%202016-10-05%20at%208.57.00%20PM.png)
