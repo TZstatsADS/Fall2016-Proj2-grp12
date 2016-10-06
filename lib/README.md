@@ -9,7 +9,9 @@ library(readr)
 library(data.table)
 library(qmap)
 setwd("/Users/zuonianyao/Documents/GR5243/Project2") #put your own folder address here
+
 sat <- fread("SAT_Results.csv") #load your data set here
+
 names(sat) <- c("DBN","name","Num","AvgReading","AvgMath","AvgWriting") #rename the variables for your dataset 
                                                                         # by your preference
 sat <- sat %>% 
@@ -17,5 +19,5 @@ sat <- sat %>%
        mutate(longtitude = geocode(address)[,1],latitude = geocode(address)[,2]) # The first var of the geocode function output 
                                                                        # is the longtitude and the second var is the latitude
  
-![before](https://github.com/TZstatsADS/Fall2016-Proj2-grp12/blob/master/lib/Screen%20Shot%202016-10-05%20at%208.57.00%20PM.png)
+![before](https://github.com/TZstatsADS/Fall2016-Proj2-grp12/blob/master/lib/Screen%20Shot%202016-10-05%20at%208.34.38%20PM.png)
 ![after](https://github.com/TZstatsADS/Fall2016-Proj2-grp12/blob/master/lib/Screen%20Shot%202016-10-05%20at%208.57.00%20PM.png)
