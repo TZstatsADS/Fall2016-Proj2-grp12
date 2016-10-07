@@ -6,8 +6,8 @@ library(readr)
 library(data.table)
 library(qmap)
 #setwd("/Users/jgaci/Dropbox/2016_Fall/|") #put your own folder address here
-resturant_data <- read_csv("../data/DOHMH_New_York_City_Restaurant_Inspection_Results.csv") #load your data set here
-#names(sat) <- c("DBN","name","Num","AvgReading","AvgMath","AvgWriting") #rename the variables for your dataset 
+restaurant_data <- read_csv("../data/DOHMH_New_York_City_Restaurant_Inspection_Results.csv") #load your data set here
+names(restaurant_data) <- make.names(names(restaurant_data))
 # by your preference
 #sat <- sat %>% 
 #  mutate(address = paste(tolower(name),", NY, US")) %>%  # To specify your address, indicate its in NY
