@@ -26,3 +26,5 @@ restaurant.data.uniques.2 <- restaurant.data.uniques[2501:2600,]
 
 restaurant.data.uniques.2 <- restaurant.data.uniques.2 %>%
   mutate(longtitude = geocode(full.address)[,1],latitude = geocode(full.address)[,2]) # The first var of the geocode function output 
+
+write.csv(restaurant.data2, file="../output/restaurestaurant.data.uniques.2")
