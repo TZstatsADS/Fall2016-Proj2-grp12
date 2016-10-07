@@ -21,8 +21,3 @@ restaurant.data.uniques.1 <- restaurant.data.uniques[1:2500,]
 
 restaurant.data.uniques.1 <- restaurant.data.uniques.1 %>%
   mutate(longtitude = geocode(full.address)[,1],latitude = geocode(full.address)[,2]) # The first var of the geocode function output 
-
-
-
-
-class<-sort(unique(restaurant.data$DBA))
