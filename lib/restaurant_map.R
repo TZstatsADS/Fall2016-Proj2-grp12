@@ -6,11 +6,23 @@ library(readr)
 library(data.table)
 library(qmap)
 #setwd("/Users/jgaci/Dropbox/2016_Fall/|") #put your own folder address here
-restaurant_data <- read_csv("../data/DOHMH_New_York_City_Restaurant_Inspection_Results.csv") #load your data set here
-names(restaurant_data) <- make.names(names(restaurant_data))
-# by your preference
-#sat <- sat %>% 
-#  mutate(address = paste(tolower(name),", NY, US")) %>%  # To specify your address, indicate its in NY
-#  mutate(longtitude = geocode(address)[,1],latitude = geocode(address)[,2]) # The first var of the geocode function output 
-# is the longtitude and the second var is the latitude
+restaurant.data <- read_csv("../data/DOHMH_New_York_City_Restaurant_Inspection_Results.csv") #load your data set here
+names(restaurant.data) <- make.names(names(restaurant.data))
 
+restaurant.data$full.address <- paste(tolower(restaurant.data$STREET), 
+                                      restaurant.data$BUILDING,", NY, US")
+
+
+restaurant.data.uniques <- restaurant.data[!duplicated(restaurant.data[,c('DBA','full.address')]),]
+restaurant.data.uniques <- restaurant.data.uniques[,c('DBA', 'full.address')]
+
+
+restaurant.data.uniques.1 <- restaurant.data.uniques[1:2500,]
+
+restaurant.data.uniques.1 <- restaurant.data.uniques.1 %>%
+  mutate(longtitude = geocode(full.address)[,1],latitude = geocode(full.address)[,2]) # The first var of the geocode function output 
+
+
+
+
+class<-sort(unique(restaurant.data$DBA))
