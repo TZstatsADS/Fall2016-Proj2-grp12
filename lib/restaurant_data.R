@@ -56,15 +56,15 @@ get.geocode.data <- function(df, range.to.get.data, fileNumber, source.of.data){
 #
 source.of.data <- "google"
 google.daily.max <- 2500
-fileNumber <- 4
+fileNumber <- 2
 
 
 # Calculations of range to explore, from a to b
 a <- (fileNumber-1)*google.daily.max + 1
 b <- a + google.daily.max - 1
 # You can change a and b manually in the next two rows
-#a <- 2601
-#b <- 5000
+#a <- 501
+#b <- 2500
 
 range.to.get.data <- a:b
 
