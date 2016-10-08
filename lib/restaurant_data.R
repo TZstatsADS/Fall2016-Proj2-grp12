@@ -42,6 +42,7 @@ get.geocode.data <- function(df, range.to.get.data, fileNumber, source.of.data){
   df.cut <- cbind(df.cut, geocode.data)
   fileName <- paste0('../output/restaurant_uniques_',fileNumber,'.csv')
   write_csv(x = df.cut, path = fileName)
+  geocodeQueryCheck("free")
 }
 
 
