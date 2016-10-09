@@ -15,7 +15,7 @@ relevant.columns <- c('CAMIS','DBA','CUISINE.DESCRIPTION','full.address')
 
 if(preliminary.data.job){
   ## ---- Extract Data
-  restaurant.data <- read.csv("../data/DOHMH_New_York_City_Restaurant_Inspection_Results.csv") #load your data set here
+  restaurant.data <- read_csv("../data/DOHMH_New_York_City_Restaurant_Inspection_Results.csv") #load your data set here
   
   ## ---- Transform Data
   names(restaurant.data) <- make.names(names(restaurant.data))
@@ -26,11 +26,12 @@ if(preliminary.data.job){
   ## ---- Load Data
   restaurant.data.uniques <- restaurant.data[!duplicated(restaurant.data[,relevant.columns]),]
   restaurant.data.uniques <- restaurant.data.uniques[,relevant.columns]
+  restaurant.data.uniques <- na.omit(restaurant.data.uniques)
   
   ## ---- Write CSV file with the table we need to geo locate
-  write.csv(restaurant.data.uniques, '../output/restaurant_uniques_source.csv')
+  write_csv(restaurant.data.uniques, '../output/restaurant_uniques_source.csv')
 } else {
-  restaurant.data.uniques <- read.csv('../output/restaurant_uniques_source.csv')
+  restaurant.data.uniques <- read_csv('../output/restaurant_uniques_source.csv')
 }
 
 # Function call for geolocation
@@ -39,9 +40,9 @@ get.geocode.data <- function(df, range.to.get.data, fileNumber, source.of.data){
   geocode.data <- geocode(location = df.cut$full.address
                           ,source = source.of.data
                           )
-  df.cut <- cbind(df.cut, geocode.data)
+  df.cut.output <- data.frame(df.cut, geocode.data)
   fileName <- paste0('../output/restaurant_uniques_',fileNumber,'.csv')
-  write.csv(x = df.cut, path = fileName)
+  write_csv(x = df.cut.output, path = fileName)
   geocodeQueryCheck("free")
   return(geocode.data)
 }
@@ -59,15 +60,15 @@ get.geocode.data <- function(df, range.to.get.data, fileNumber, source.of.data){
 #
 source.of.data <- "google"
 google.daily.max <- 2500
-fileNumber <- 3
+fileNumber <- 4
 
 
 # Calculations of range to explore, from a to b
 a <- (fileNumber-1)*google.daily.max + 1
 b <- a + google.daily.max - 1
 # You can change a and b manually in the next two rows
-#a <- 501+
-#b <- 2500
+#a <- 10001
+#b <- 10100
 
 range.to.get.data <- a:b
 
