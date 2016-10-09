@@ -1,0 +1,27 @@
+library(dplyr)
+library(ggmap)
+library(ggplot2)
+library(DT)
+library(readr)
+library(data.table)
+library(qmap)
+setwd("/Users/zuonianyao/Documents/GR5243/Project2")
+wifi <- fread("NYC_Wi-Fi_Hotspot_Locations_Map.csv")
+wifi_1 <- wifi %>% 
+       dplyr::select(Type,Location,Lat,Long_,Location_T,City) %>%
+       filter(Type=="Free"|Type=="Limited Free")
+nycMap <- qmap("new york city", zoom = 10, color="bw",legend = "topleft")
+nyc_scatter <- nycMap + 
+               geom_point(aes(x = Long_, y = Lat, colour = "pink",alpha=0.3), data = wifi_1)+ 
+               ggtitle("The scatter plot of free wifi in NYC") +        
+               theme(axis.text=element_blank(),axis.ticks=element_blank(),
+               axis.title=element_blank(),legend.position="none")
+nyc_scatter
+nyc <- get_map("new york city", zoom = 10)
+nyc_heat <-  nycMap + geom_density2d(data =wifi_1, aes(x = Long_, y = Lat), 
+             size = 0.3) + stat_density2d(data = wifi_1, aes(x = Long_, y = Lat, 
+             fill = ..level.., alpha = ..level..), size = 0.01, bins = 16, geom = "polygon") + 
+             scale_fill_gradient(low = "yellow", high = "violet") + 
+             scale_alpha(range = c(0.2, 0.6), guide = F)+ 
+             ggtitle("The heatmap of free wifi in NYC")
+nyc_heat

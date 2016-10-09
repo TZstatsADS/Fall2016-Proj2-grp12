@@ -15,7 +15,7 @@ relevant.columns <- c('CAMIS','DBA','CUISINE.DESCRIPTION','full.address')
 
 if(preliminary.data.job){
   ## ---- Extract Data
-  restaurant.data <- read_csv("../data/DOHMH_New_York_City_Restaurant_Inspection_Results.csv") #load your data set here
+  restaurant.data <- read.csv("../data/DOHMH_New_York_City_Restaurant_Inspection_Results.csv") #load your data set here
   
   ## ---- Transform Data
   names(restaurant.data) <- make.names(names(restaurant.data))
@@ -28,9 +28,9 @@ if(preliminary.data.job){
   restaurant.data.uniques <- restaurant.data.uniques[,relevant.columns]
   
   ## ---- Write CSV file with the table we need to geo locate
-  write_csv(restaurant.data.uniques, '../output/restaurant_uniques_source.csv')
+  write.csv(restaurant.data.uniques, '../output/restaurant_uniques_source.csv')
 } else {
-  restaurant.data.uniques <- read_csv('../output/restaurant_uniques_source.csv')
+  restaurant.data.uniques <- read.csv('../output/restaurant_uniques_source.csv')
 }
 
 # Function call for geolocation
@@ -41,7 +41,7 @@ get.geocode.data <- function(df, range.to.get.data, fileNumber, source.of.data){
                           )
   df.cut <- cbind(df.cut, geocode.data)
   fileName <- paste0('../output/restaurant_uniques_',fileNumber,'.csv')
-  write_csv(x = df.cut, path = fileName)
+  write.csv(x = df.cut, path = fileName)
   geocodeQueryCheck("free")
   return(geocode.data)
 }
@@ -59,7 +59,7 @@ get.geocode.data <- function(df, range.to.get.data, fileNumber, source.of.data){
 #
 source.of.data <- "google"
 google.daily.max <- 2500
-fileNumber <- 4
+fileNumber <- 3
 
 
 # Calculations of range to explore, from a to b
@@ -77,4 +77,13 @@ geocode.data <- get.geocode.data(restaurant.data.uniques,
                  fileNumber,
                  source.of.data)
 
+
+
+#
+#Plot on map(try on group1)
+#
+restaurant_uniques_1<-na.omit(restaurant_uniques_1)
+dim(restaurant_uniques_1)
+restaurant.map<-qmap('new york', zoom=12)
+restaurant.map + geom_point(data = restaurant_uniques_1, aes(x =lon, y =lat), color="red", size=2, alpha=0.5)
 
