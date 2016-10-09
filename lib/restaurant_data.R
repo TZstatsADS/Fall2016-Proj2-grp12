@@ -60,7 +60,7 @@ get.geocode.data <- function(df, range.to.get.data, fileNumber, source.of.data){
 #
 source.of.data <- "google"
 google.daily.max <- 2500
-fileNumber <- 4
+fileNumber <- 5
 
 
 # Calculations of range to explore, from a to b
@@ -83,8 +83,8 @@ geocode.data <- get.geocode.data(restaurant.data.uniques,
 #
 #Plot on map(try on group1)
 #
-restaurant_uniques_1<-na.omit(restaurant_uniques_1)
-dim(restaurant_uniques_1)
-restaurant.map<-qmap('new york', zoom=12)
-restaurant.map + geom_point(data = restaurant_uniques_1, aes(x =lon, y =lat), color="red", size=2, alpha=0.5)
+#restaurant_uniques_1<-na.omit(restaurant_uniques_1)
+#dim(restaurant_uniques_1)
+#restaurant.map<-qmap('new york', zoom=12)
+#restaurant.map + geom_point(data = restaurant_uniques_1, aes(x =lon, y =lat), color="red", size=2, alpha=0.5)
 
