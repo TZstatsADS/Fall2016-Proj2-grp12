@@ -77,3 +77,12 @@ get.geocode.data(restaurant.data.uniques,
                  source.of.data)
 
 
+
+#
+#Plot on map(try on group1)
+#
+restaurant_uniques_1<-na.omit(restaurant_uniques_1)
+dim(restaurant_uniques_1)
+restaurant.map<-qmap('new york', zoom=12)
+restaurant.map + geom_point(data = restaurant_uniques_1, aes(x =lon, y =lat), color="red", size=2, alpha=0.5)
+
