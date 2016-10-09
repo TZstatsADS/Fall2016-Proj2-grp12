@@ -22,5 +22,6 @@ nyc_heat <-  ggmap(nyc, extent = "device") + geom_density2d(data =wifi_1, aes(x 
              size = 0.5) + stat_density2d(data = wifi_1, aes(x = Long_, y = Lat, 
              fill = ..level.., alpha = ..level..), size = 0.05, bins = 20, geom = "polygon") + 
              scale_fill_gradient(low = "yellow", high = "purple") + 
-             scale_alpha(range = c(0, 0.5), guide = FALSE)
+             scale_alpha(range = c(0, 0.5), guide = FALSE)+ 
+             ggtitle("The heatmap of free wifi in NYC")
 nyc_heat
