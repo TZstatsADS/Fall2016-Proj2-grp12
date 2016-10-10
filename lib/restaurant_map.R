@@ -19,7 +19,7 @@ m<-leaflet() %>% setView(lng = -73.97, lat = 40.75, zoom = 12) %>% addProviderTi
 #    urlTemplate = "https://api.mapbox.com/v4/mapbox.streets/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiZnJhcG9sZW9uIiwiYSI6ImNpa3Q0cXB5bTAwMXh2Zm0zczY1YTNkd2IifQ.rjnjTyXhXymaeYG6r2pclQ",
 #    attribution = 'Maps by <a href="http://www.mapbox.com/">Mapbox</a>'
 #  ) 
-  
+
 m <- addMarkers(m,rest.plot.data$lon,rest.plot.data$lat, popup=as.character(rest.plot.data$DBA))
 m
 
