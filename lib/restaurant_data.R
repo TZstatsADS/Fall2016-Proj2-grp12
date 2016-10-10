@@ -60,7 +60,7 @@ get.geocode.data <- function(df, range.to.get.data, fileNumber, source.of.data){
 #
 source.of.data <- "google"
 google.daily.max <- 2500
-fileNumber <- 5
+fileNumber <- 8
 
 
 # Calculations of range to explore, from a to b
