@@ -76,4 +76,11 @@ multimerge <- function(mypath){
   return(dataset)
 }  
 
+cafe_marker <- function(dataset){
+  dataset <- dataset %>%
+    mutate(cafe=ifelse(grepl("CAFE",DBA),1,
+                       ifelse(grepl("Cafe",DBA),1,
+                              ifelse(grepl("cafe",DBA),1,0))))
+  return(dataset)
+}
 
