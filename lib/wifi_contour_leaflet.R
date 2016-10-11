@@ -26,6 +26,7 @@ wifi.geodata <- na.omit(wifi_1)
 
 X=cbind(wifi.geodata$Long_,wifi.geodata$Lat)
 
+kde2d <- bkde2D(X, bandwidth=c(bw.ucv(X[,1]),bw.ucv(X[,2])))
 
 x <- kde2d$x1
 y <- kde2d$x2
@@ -49,6 +50,7 @@ contour <- m %>% addCircles(wifi.geodata$Long_,wifi.geodata$Lat, radius = 0.1,op
   addPolygons(CL[[13]]$x,CL[[13]]$y,fillColor = "red", stroke = FALSE) %>%
   addPolygons(CL[[14]]$x,CL[[14]]$y,fillColor = "red", stroke = FALSE) %>%
   addPolygons(CL[[15]]$x,CL[[15]]$y,fillColor = "red", stroke = FALSE) %>%
+  addPolygons(CL[[16]]$x,CL[[16]]$y,fillColor = "red", stroke = FALSE) %>%
   addPolygons(CL[[17]]$x,CL[[17]]$y,fillColor = "red", stroke = FALSE) %>%
   addPolygons(CL[[18]]$x,CL[[18]]$y,fillColor = "red", stroke = FALSE) %>%
   addPolygons(CL[[19]]$x,CL[[19]]$y,fillColor = "red", stroke = FALSE) %>%
