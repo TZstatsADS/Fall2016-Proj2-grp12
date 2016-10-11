@@ -30,7 +30,7 @@ dbody <- dashboardBody(
                 tabItem(tabName = 'map',
                  fluidRow(
                          column(width = 9,
-                                box(width = NULL, solidHeader = TRUE, leafletOutput('map_output', height = 600))
+                                box(width = NULL, solidHeader = TRUE, leafletOutput('map_output', height = 800))
                                 ),
                          column(width = 3,
                                 box(width = NULL, status = 'warning', background = 'yellow',
@@ -38,6 +38,7 @@ dbody <- dashboardBody(
                                     actionButton('search', 'Get!'),
                                     p('Enter your location to search for rest stops with Wifi near by!')
                                     ),
+                                verbatimTextOutput("location.text"),
                                 box(width = NULL, status = 'warning', background = 'yellow',
                                     selectInput('type','Are you a Coffee, Bakery or Bar person?',
                                                 c('Any','Coffee', 'Bakery', 'Bar'), selected = 'Any',

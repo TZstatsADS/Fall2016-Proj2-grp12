@@ -27,9 +27,11 @@ geocodeAdddress <- function(address) {
 shinyServer(function(input, output) {
   cor <- reactive({
     cor <- geocodeAdddress(input$location)  
+    
   })
-
-
+  
+  output$location.text <- renderPrint({ geocodeAdddress(input$location)  }) 
+  
   restaurant.data <- read.csv("../output/restaurants_unique_geocoded.csv")
   wifi.data <- read.csv("../data/NYC_Wi-Fi_Hotspot_Locations_Map.csv")
 
@@ -37,7 +39,6 @@ shinyServer(function(input, output) {
   
   wifi.geodata <- create.wifi.geodata(wifi.data)
   CL <- create.wifi.contour.lines(wifi.geodata)
-  
   
 #  wifi.points <- cbind(wifi.data$Lat, wifi.data$Long_) # Need to be filtered acoording to inputs
   
@@ -48,8 +49,7 @@ shinyServer(function(input, output) {
                      ,popup = restaurant.data$DBA)
   mapping <- add.wifi.points(mapping, wifi.geodata)
   mapping <- add.wifi.contours(mapping, CL)
-  
-  output$map_output <- renderLeaflet(mapping)
-})
 
-        
+  output$map_output <- renderLeaflet(mapping)
+  
+})
