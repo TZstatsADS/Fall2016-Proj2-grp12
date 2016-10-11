@@ -32,6 +32,8 @@ shinyServer(function(input, output) {
 
   restaurant.data <- read.csv("../output/restaurants_unique_geocoded.csv")
   wifi.data <- read.csv("../data/NYC_Wi-Fi_Hotspot_Locations_Map.csv")
+
+  restaurant.data <- restaurant.data[1:100,]
   
   wifi.geodata <- create.wifi.geodata(wifi.data)
   CL <- create.wifi.contour.lines(wifi.geodata)
