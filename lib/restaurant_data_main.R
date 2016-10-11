@@ -51,6 +51,7 @@ dataset <- dataset %>%
                              ifelse(grepl("cafe",DBA),1,0))))
   return(dataset)
   }
+restaurants.geocoded <- cafe_marker(restaurants.geocoded)
 write_csv(restaurants.geocoded, '../output/restaurants_unique_geocoded.csv')
 
 
