@@ -4,6 +4,8 @@ library(scales)
 library(lattice)
 library(dplyr)
 
+setwd("C:/Users/jgaci/Dropbox/2016_Fall/Applied_Data_Science/Project02/Fall2016-Proj2-grp12/")
+
 geocodeAdddress <- function(address) {
         require(RJSONIO)
         url <- "http://maps.google.com/maps/api/geocode/json?address="
@@ -19,20 +21,23 @@ geocodeAdddress <- function(address) {
         out
 }
 
-wifi_data <- read.csv("/Fall2016-Proj2-grp12/data/NYC_Wi-Fi_Hotspot_Locations_Map.csv")
+wifi_data <- read.csv("./data/NYC_Wi-Fi_Hotspot_Locations_Map.csv")
 wifi_points <- cbind(wifi_data$Lat, wifi_data$Long_)
+
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
-        
-        cor <- geocodeAdddress(input$location)
-        
-        wifi_points <- cbind(wifi_data$Lat, wifi_data$Long_) # Need to be filtered acoording to inputs
-        
-        mapping <- leaflet() %>%
-                setView(lng=-73.96884112664793,lat =40.78983730268673, zoom=13) %>%
-                addTiles() %>%
-                addMarkers(lng = wifi_data$Long_, lat = wifi_data$Lat)
-        output$map_output <- renderLeaflet(mapping)
+  cor <- reactive({
+    cor <- geocodeAdddress(input$location)  
+  })
+  
+  
+  wifi_points <- cbind(wifi_data$Lat, wifi_data$Long_) # Need to be filtered acoording to inputs
+  
+  mapping <- leaflet() %>%
+          setView(lng=-73.96884112664793,lat =40.78983730268673, zoom=13) %>%
+          addTiles() %>%
+          addMarkers(lng = wifi_data$Long_, lat = wifi_data$Lat)
+  output$map_output <- renderLeaflet(mapping)
 })
 
         
