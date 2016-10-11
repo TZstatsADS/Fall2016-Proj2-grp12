@@ -7,6 +7,9 @@ library(data.table)
 library(qmap)
 source('restaurant_data_functions.R') # functions
 
+
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+
 # Get Data ----
 preliminary.data.job <- FALSE
 get.geocode.data.flag <- FALSE
