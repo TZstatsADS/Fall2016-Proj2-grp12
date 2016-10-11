@@ -13,11 +13,6 @@ library(rgdal)
 library(maptools)
 library(KernSmooth)
 
-# Function to set wd
-setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
-#setwd("/Users/zuonianyao/Documents/GR5243/Project2")
-wifi <- fread("../data/NYC_Wi-Fi_Hotspot_Locations_Map.csv")
-
 create.wifi.geodata <- function(wifi.data){
   wifi_1 <- wifi.data %>% 
     dplyr::select(Type,Location,Lat,Long_,Location_T,City) %>%
@@ -72,18 +67,5 @@ add.wifi.contours <- function(leaflet.plot, CL){
   
   return(leaflet.plot)
 }
-
-## Run to test functions
-
-wifi.geodata <- create.wifi.geodata(wifi)
-CL <- create.wifi.contour.lines(wifi.geodata)
-
-m = leaflet() %>% setView(lng = -73.97, lat = 40.75, zoom = 12) %>% 
-  addProviderTiles("CartoDB.Positron")
-
-m <- add.wifi.points(m)
-m <- add.wifi.contours(m, CL)
-
-m
 
 

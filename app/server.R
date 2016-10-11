@@ -5,7 +5,7 @@ library(leaflet)
 library(scales)
 library(lattice)
 library(dplyr)
-source('../lib/wifi_contour_leaflet.R')
+source('../lib/wifi_contour_leaflet_functions.R')
 
 
 geocodeAdddress <- function(address) {
@@ -31,7 +31,6 @@ shinyServer(function(input, output) {
 
 
   restaurant.data <- read.csv("../output/restaurants_unique_geocoded.csv")
-
   wifi.data <- read.csv("../data/NYC_Wi-Fi_Hotspot_Locations_Map.csv")
   
   wifi.geodata <- create.wifi.geodata(wifi.data)
@@ -46,7 +45,7 @@ shinyServer(function(input, output) {
           addMarkers(lng = restaurant.data$lon, lat = restaurant.data$lat
                      ,popup = restaurant.data$DBA)
   mapping <- add.wifi.points(mapping, wifi.geodata)
-#  mapping <- add.wifi.contours(mapping, CL)
+  mapping <- add.wifi.contours(mapping, CL)
   
   output$map_output <- renderLeaflet(mapping)
 })
