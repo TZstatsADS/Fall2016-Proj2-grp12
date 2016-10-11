@@ -44,6 +44,13 @@ if(get.geocode.data.flag){
 
 # Merge all files
 restaurants.geocoded <- multimerge(output.route)
+cafe_marker <- function(dataset){
+dataset <- dataset %>%
+               mutate(cafe=ifelse(grepl("CAFE",DBA),1,
+                      ifelse(grepl("Cafe",DBA),1,
+                             ifelse(grepl("cafe",DBA),1,0))))
+  return(dataset)
+  }
 write_csv(restaurants.geocoded, '../output/restaurants_unique_geocoded.csv')
 
 
