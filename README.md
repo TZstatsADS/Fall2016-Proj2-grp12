@@ -4,14 +4,14 @@
 Term: Fall 2016
 
 + Team 12
-+ Projec title: Lorem ipsum dolor sit amet
++ Projec title: Quickly find a place to sit and work
 + Team members
 	+ Zhao, Mengya		mz2593@columbia.edu 
 	+ Zuo, Nianyao		nz2248@columbia.edu 
 	+ Zhuang, Sen		sz2536@columbia.edu 
 	+ Gacitua, Jaime	jg3499@columbia.edu 
 	
-+ Project summary: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
++ Project summary: You are in the middle of the city. You need to grab a coffee or a drink, and also use internet. Our tool allows finding nearby places where you can do all of this.
 
 In this second project of Applied Data Science, we will carry out *Exploratory Data Analysis and Visualization* via a shiny app on a topic about open data released from the [New York City open data portal](https://nycopendata.socrata.com/). See [Project 2 Description](doc/project2_desc.md) for more details.  
 
