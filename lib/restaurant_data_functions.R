@@ -77,10 +77,17 @@ multimerge <- function(mypath){
 }  
 
 cafe_marker <- function(dataset){
-  dataset <- dataset %>%
-    mutate(cafe=ifelse(grepl("CAFE",DBA),1,
-                       ifelse(grepl("Cafe",DBA),1,
-                              ifelse(grepl("cafe",DBA),1,0))))
+  dataset$DBA <- toupper(dataset$DBA)
+
+ dataset <- dataset %>%
+               mutate(type=ifelse(grepl("CAFE",DBA),"cafe",
+                  ifelse(grepl("coffee",CUISINE.DESCRIPTION),"cafe",ifelse(grepl("BAR",DBA),"bar",
+                    ifelse(grepl("water",CUISINE.DESCRIPTION),"bar",
+                     ifelse(grepl("Juice",CUISINE.DESCRIPTION),"bar",
+                      ifelse(grepl("Yogurt",CUISINE.DESCRIPTION),"bar",
+                       ifelse(grepl("Bakery",CUISINE.DESCRIPTION),"bakery",
+                        ifelse(grepl("Donuts",CUISINE.DESCRIPTION),"bakery",
+                         ifelse(grepl("Waffles",CUISINE.DESCRIPTION),"bakery","other"))))))))))
   return(dataset)
 }
 
