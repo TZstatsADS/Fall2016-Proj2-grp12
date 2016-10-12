@@ -27,16 +27,16 @@ geocodeAdddress <- function(address) {
 shinyServer(
   function(input, output) {
   
-  reactive({
-    cor <- geocodeAdddress(input$location)  
+  cor <- reactive({
+    cor <- geocodeAdddress(input$search.location)  
   })
   
-  output$location.text <- renderPrint({ geocodeAdddress(input$location)  }) 
+  #output$location.text <- renderPrint({ geocodeAdddress(input$location)  }) 
   
   restaurant.data <- read_csv("../output/restaurants_unique_geocoded.csv")
   wifi.data <- read_csv("../data/NYC_Wi-Fi_Hotspot_Locations_Map.csv")
 
-  restaurant.data <- restaurant.data[restaurant.data$cafe == 1,]
+  restaurant.data <- restaurant.data[restaurant.data$type == 'cafe',]
   restaurant.data <- restaurant.data[1:100,]
 
   wifi.geodata <- create.wifi.geodata(wifi.data)
@@ -44,14 +44,22 @@ shinyServer(
   
 #  wifi.points <- cbind(wifi.data$Lat, wifi.data$Long_) # Need to be filtered acoording to inputs
 
-  mapping <- leaflet() %>%
-          setView(lng=-73.96884112664793,lat =40.78983730268673, zoom=13) %>%
-          addProviderTiles("CartoDB.Positron") %>%
-          addMarkers(lng = restaurant.data$lon, lat = restaurant.data$lat
-                     ,popup = restaurant.data$DBA)
-  mapping <- add.wifi.points(mapping, wifi.geodata)
-  mapping <- add.wifi.contours(mapping, CL)
+  location.text.variable <- reactiveValues(data = c(-73.9688, 40.7898))
+  
+  observeEvent(input$go, {
+    location.text.variable$data <- geocodeAdddress(input$search.location)
+  })
+  
+  output$map_output <- renderLeaflet({
+    mapping <- leaflet() %>%
+      setView(lng=location.text.variable$data[1],lat=location.text.variable$data[2], zoom=15) %>%
+      addProviderTiles("CartoDB.Positron") %>%
+      addMarkers(lng = restaurant.data$lon, lat = restaurant.data$lat
+                 ,popup = restaurant.data$DBA)
+    mapping <- add.wifi.points(mapping, wifi.geodata)
+    mapping <- add.wifi.contours(mapping, CL)
+    mapping
+  })
 
-  output$map_output <- renderLeaflet(mapping)
   }
 )
