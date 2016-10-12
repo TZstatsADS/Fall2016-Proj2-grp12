@@ -61,6 +61,6 @@ shinyServer(
     mapping
   })
   output$shoptable <- renderDataTable({restaurant.data[,c(2,3,4,7)]})
-  output$wifitable <- renderDataTable({wifi_data})
+  output$wifitable <- renderDataTable({wifi.data})
   }
 )
