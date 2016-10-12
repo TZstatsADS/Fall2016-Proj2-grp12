@@ -34,8 +34,8 @@ dbody <- dashboardBody(
                                 ),
                          column(width = 3,
                                 box(width = NULL, status = 'warning', background = 'yellow',
-                                    textInput('location', 'Where am I?'),
-                                    actionButton('search', 'Get!'),
+                                    textInput('search.location', 'Where am I?'),
+                                    actionButton('go', 'Get!'),
                                     p('Enter your location to search for rest stops with Wifi near by!')
                                     ),
                                 verbatimTextOutput("location.text"),
