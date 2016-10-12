@@ -6,10 +6,6 @@ library(readr)
 library(data.table)
 library(qmap)
 
-#
-# Preliminary calculations. Run everything until row 50 of code
-#
-
 
 etl.input.data <- function(do.preliminary.data = FALSE,
                            relevant.columns,
