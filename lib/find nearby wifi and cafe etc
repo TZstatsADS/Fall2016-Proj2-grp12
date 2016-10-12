@@ -1,0 +1,28 @@
+library(dplyr)
+library(DT)
+library(readr)
+library(data.table)
+library(sp)
+library(rgdal)
+library(rgeos)
+library(RANN)
+library(geosphere)
+setwd("/Users/zuonianyao/Documents/GR5243/Project2")
+wifi <- fread("NYC_Wi-Fi_Hotspot_Locations_Map.csv")
+wifi_1 <- wifi %>% 
+       dplyr::select(Type,Location,Lat,Long_,Location_T,City) %>%
+       filter(Type=="Free"|Type=="Limited Free")
+wifi_1 <- na.omit(wifi_1)
+wifi_1 <- data.frame(wifi_1[,1:2],wifi_1[,4],wifi_1[,3],wifi_1[,5:6])
+names(wifi_1) <- c("type","location","lon","lat","belong","city")
+wifi_1$type <- paste(wifi_1$type,"wifi")
+find_wifi_and_cafe <- function(x){
+  address <- paste("'",x,",New York City,NY,US'")
+  coor <- geocode(address) 
+  dist_wifi <- distm(wifi_1[,3:4],coor,fun = distHaversine)
+  index_wifi <- which(dist_wifi<500)
+  dist_cafe <- distm(restaurant[,5:6],coor,fun = distHaversine)
+  index_cafe <- which(dist_cafe<500)
+  result <- rbind(select(wifi_1[index_wifi,],lon,lat,type),restaurant[index_cafe,5:7]) 
+  return(result)
+  }
