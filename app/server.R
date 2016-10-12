@@ -1,4 +1,4 @@
-setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+#setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
 library(shiny)
 library(leaflet)
@@ -26,16 +26,16 @@ geocodeAdddress <- function(address) {
 # Define server logic required to draw a histogram
 shinyServer(
   function(input, output) {
-  
+  output$ty <- reactive(input$type)
   cor <- reactive({
     cor <- geocodeAdddress(input$search.location)  
   })
   
   #output$location.text <- renderPrint({ geocodeAdddress(input$location)  }) 
-  
   restaurant.data <- read_csv("../output/restaurants_unique_geocoded.csv")
   wifi.data <- read_csv("../data/NYC_Wi-Fi_Hotspot_Locations_Map.csv")
-
+  ty = reactive(input$typy)
+  
   restaurant.data <- restaurant.data[restaurant.data$type == 'cafe',]
   restaurant.data <- restaurant.data[1:100,]
 
@@ -60,6 +60,7 @@ shinyServer(
     mapping <- add.wifi.contours(mapping, CL)
     mapping
   })
-
+  output$shoptable <- renderDataTable({restaurant.data[,c(2,3,4,7)]})
+  output$wifitable <- renderDataTable({wifi_data})
   }
 )

@@ -17,9 +17,9 @@ sidebar <- dashboardSidebar(
         sidebarMenu(
                 menuItem('Find', tabName = 'map', icon = icon('map'), 
                          badgeLabel = 'New', badgeColor = 'orange'),
-                menuItem('Info', tabName = 'info', icon = icon('info'),
-                         menuSubItem('Shop Info', icon = icon('coffee')),
-                         menuSubItem('Wifi Info', icon = icon('wifi'))
+                menuItem('Info', icon = icon('info'),
+                         menuSubItem('Shop Info', icon = icon('coffee'), tabName = 'shop'),
+                         menuSubItem('Wifi Info', icon = icon('wifi'), tabName = 'wifi')
                          ),
                 menuItem('Team', tabName = 'team', icon = icon('user'))
         )
@@ -41,7 +41,7 @@ dbody <- dashboardBody(
                                 verbatimTextOutput("location.text"),
                                 box(width = NULL, status = 'warning', background = 'yellow',
                                     selectInput('type','Are you a Coffee, Bakery or Bar person?',
-                                                c('Any','Coffee', 'Bakery', 'Bar'), selected = 'Any',
+                                                c('Any','cafe', 'bakery', 'bar'), selected = 'Any',
                                                 multiple = FALSE)),
                                 box(width = NULL, status = 'warning', background = 'yellow',
                                     sliderInput('distance', 'Choose a distance', 1, 3000, 500),
@@ -55,7 +55,15 @@ dbody <- dashboardBody(
                             br(),
                             'Zhuang, Sen sz2536@columbia.edu',
                             br(),
-                            'Gacitua, Jaime jg3499@columbia.edu'))))
+                            'Gacitua, Jaime jg3499@columbia.edu')),
+                tabItem(tabName = 'shop',
+                        h2(textOutput('ty'), 'Shop Info'),
+                        dataTableOutput('shoptable')),
+                tabItem(tabName = 'wifi',
+                        h2('Wifi Info'),
+                        dataTableOutput('wifitable'))
+
+))
 
 dashboardPage(
         header,
